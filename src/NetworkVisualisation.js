@@ -3,14 +3,14 @@ import * as d3 from 'd3';
 import graphData from './graphdata'
 
 const NetworkVisualisation = () => {
-    let [displayAuthorship, setDisplayAuthorship] = React.useState(false)
+    let [displayAuthorship, setDisplayAuthorship] = React.useState(true)
 
 
 
 
 
     const drawChart = React.useCallback((graph) => {
-        const height = window.innerHeight - 70;
+        const height = window.innerHeight - 200;
         const width = window.innerWidth - 100;
         console.log(graph)
 
@@ -236,10 +236,14 @@ const NetworkVisualisation = () => {
     }, [displayAuthorship, createNodesAndLinks, drawChart]);
 
     return (<div className="visualisation">
+        <h3>Transactions taken from the following IndyScan queries :
+            <a href="https://indyscan.io/txs/SOVRIN_MAINNET/domain?page=1&pageSize=50&filterTxNames=[]&sortFromRecent=true&search=Uvb86cUzmdgZ8AfbN176tc">Uvb86cUzmdgZ8AfbN176tc</a>,
+            <a href="https://indyscan.io/txs/SOVRIN_MAINNET/domain?page=1&pageSize=50&filterTxNames=[]&sortFromRecent=true&search=R6kf9GCbVH3q536SB1HU9L">R6kf9GCbVH3q536SB1HU9L</a>
+        </h3>
         <div className="toggle-bar">
-            <button className={displayAuthorship && "selected"} onClick={() => {
+            <button className={displayAuthorship ? "button is-primary" : "button"} onClick={() => {
                 setDisplayAuthorship(true)}}>Graph Tx Authorship</button>
-            <button className={!displayAuthorship && "selected"} onClick={() => setDisplayAuthorship(false)}>Graph Tx Endorsement</button></div>
+            <button className={!displayAuthorship ? "button is-primary" : "button"} onClick={() => setDisplayAuthorship(false)}>Graph Tx Endorsement</button></div>
         <div id="d3-container">
 
 
