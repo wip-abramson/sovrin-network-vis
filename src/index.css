@@ -1,13 +1,82 @@
 body {
-  margin: 0;
+  margin: 0px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.link {
+  stroke: #000;
+  stroke-width: 2.5px;
+}
+
+.link.schema-id {
+  stroke: grey;
+  stroke-dasharray: 5;
+  stroke-width: 1px;
+}
+
+.node {
+  cursor: move;
+  fill: #ccc;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+
+.node.definition {
+  fill: green;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+
+.node.nym {
+  fill: white;
+  stroke: #000;
+  stroke-width: 3px;
+}
+
+.node.schema {
+  fill: blue;
+}
+
+.node.endorser {
+  stroke: red;
+  stroke-width: 3px;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: left;
+  max-width: 4000px;
+  height: 60x;
+  padding: 2px;
+  font: 10px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+/*.visualisation {*/
+  /*margin: 10px 50px;*/
+/*}*/
+
+.toggle-bar {
+  margin-top: 40px;
+
+
+}
+
+.toggle-bar button .selected {
+  background-color: blue;
 }
