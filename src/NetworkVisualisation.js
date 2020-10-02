@@ -7,11 +7,7 @@ const NetworkVisualisation = () => {
     console.log(data[0])
     let [displayAuthorship, setDisplayAuthorship] = React.useState(false)
 
-
-
-
-
-    const createNodesAndLinks = () => {
+    const createNodesAndLinks = React.useCallback(() => {
         console.log("CREATE NODES")
         console.log("Display Authorship", displayAuthorship)
         let nodes = []
@@ -90,10 +86,11 @@ const NetworkVisualisation = () => {
             links: links
         }
         drawChart(newGraph)
-    }
+    }, [])
 
 
-    const drawChart = (graph) => {
+
+    const drawChart = React.useCallback((graph) => {
         const height = window.innerHeight - 70;
         const width = window.innerWidth - 100;
         console.log(graph)
@@ -225,8 +222,8 @@ const NetworkVisualisation = () => {
             d.fy = clamp(event.y, 0, height);
             simulation.alpha(1).restart();
 
-        };
-    }
+        }
+    })
 
     function clamp(x, lo, hi) {
         return x < lo ? lo : x > hi ? hi : x;
