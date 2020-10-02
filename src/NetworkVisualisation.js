@@ -5,88 +5,7 @@ import graphData from './graphdata'
 const NetworkVisualisation = () => {
     let [displayAuthorship, setDisplayAuthorship] = React.useState(false)
 
-    const createNodesAndLinks = React.useCallback(() => {
-        let data = graphData
 
-        console.log("CREATE NODES")
-        console.log("Display Authorship", displayAuthorship)
-        let nodes = []
-        let links = []
-
-        data.forEach(txn => {
-            // console.log(txn)
-
-            let node = {
-                id: txn.txnMetadata.seqNo,
-                txnId: txn.txnMetadata.txnId,
-                from: txn.txn.metadata.from,
-                endorser: txn.txn.metadata.endorser ? txn.txn.metadata.endorser : txn.txn.metadata.from,
-                type: txn.txn.type
-            }
-            if (txn.txn.type == "1") {
-                node.did = txn.txn.data.dest
-                node.isEndorser = txn.txn.data.role == "101"
-                console.log("NODE DID", node.did)
-            } else {
-                node.did = null
-            }
-
-            if (txn.txn.type == "102") {
-                links.push({
-                    source: node.id,
-                    target: txn.txn.data.ref,
-                    isSchemaId: true
-                })
-
-            }
-
-
-            nodes.push(node)
-
-        })
-
-        nodes.forEach(node => {
-            if (displayAuthorship) {
-                let from = node.from
-
-                let fromNode = nodes.find(element => element.did == from)
-
-
-                if (fromNode) {
-                    links.push({
-                        source: fromNode.id,
-                        target: node.id,
-                        type: "TX AUTHOR"
-                    })
-                }
-            } else {
-                let endorser = node.endorser
-
-                let endorserTx = nodes.find(tx => tx.did == endorser)
-                if (endorserTx) {
-
-                    links.push({
-                        source: endorserTx.id,
-                        target: node.id,
-                        type: "TX ENDORSEMENT"
-                    })
-
-                }
-            }
-
-
-
-
-
-        })
-
-        console.log(links)
-        let newGraph = {
-            nodes: nodes,
-            links: links
-        }
-        drawChart(newGraph)
-    }, [])
 
 
 
@@ -228,6 +147,88 @@ const NetworkVisualisation = () => {
     function clamp(x, lo, hi) {
         return x < lo ? lo : x > hi ? hi : x;
     }
+
+    const createNodesAndLinks = React.useCallback(() => {
+        let data = graphData
+
+        console.log("CREATE NODES")
+        let nodes = []
+        let links = []
+
+        data.forEach(txn => {
+            // console.log(txn)
+
+            let node = {
+                id: txn.txnMetadata.seqNo,
+                txnId: txn.txnMetadata.txnId,
+                from: txn.txn.metadata.from,
+                endorser: txn.txn.metadata.endorser ? txn.txn.metadata.endorser : txn.txn.metadata.from,
+                type: txn.txn.type
+            }
+            if (txn.txn.type == "1") {
+                node.did = txn.txn.data.dest
+                node.isEndorser = txn.txn.data.role == "101"
+                console.log("NODE DID", node.did)
+            } else {
+                node.did = null
+            }
+
+            if (txn.txn.type == "102") {
+                links.push({
+                    source: node.id,
+                    target: txn.txn.data.ref,
+                    isSchemaId: true
+                })
+
+            }
+
+
+            nodes.push(node)
+
+        })
+
+        nodes.forEach(node => {
+            if (displayAuthorship) {
+                let from = node.from
+
+                let fromNode = nodes.find(element => element.did == from)
+
+
+                if (fromNode) {
+                    links.push({
+                        source: fromNode.id,
+                        target: node.id,
+                        type: "TX AUTHOR"
+                    })
+                }
+            } else {
+                let endorser = node.endorser
+
+                let endorserTx = nodes.find(tx => tx.did == endorser)
+                if (endorserTx) {
+
+                    links.push({
+                        source: endorserTx.id,
+                        target: node.id,
+                        type: "TX ENDORSEMENT"
+                    })
+
+                }
+            }
+
+
+
+
+
+        })
+
+        console.log(links)
+        let newGraph = {
+            nodes: nodes,
+            links: links
+        }
+        drawChart(newGraph)
+    }, [drawChart])
 
     React.useEffect(() => {
         console.log('Mounted');
