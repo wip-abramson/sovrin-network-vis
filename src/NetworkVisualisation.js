@@ -42,15 +42,15 @@ const NetworkVisualisation = () => {
             .classed("definition", d => {
 
                 // console.log("TYPE", d.type)
-                return d.type == 102
+                return d.type === "102"
 
             })
-            .classed("nym", d => d.type == 1)
+            .classed("nym", d => d.type === "1")
             .classed("endorser", d => {
                 console.log(d.role)
                 return d.isEndorser
             })
-            .classed("schema", d =>d.type == 101)
+            .classed("schema", d =>d.type === "101")
             .on("mouseover", function(event, d) {
                 let type = null;
                 let identifier = null
@@ -165,15 +165,15 @@ const NetworkVisualisation = () => {
                 endorser: txn.txn.metadata.endorser ? txn.txn.metadata.endorser : txn.txn.metadata.from,
                 type: txn.txn.type
             }
-            if (txn.txn.type == "1") {
+            if (txn.txn.type === "1") {
                 node.did = txn.txn.data.dest
-                node.isEndorser = txn.txn.data.role == "101"
+                node.isEndorser = txn.txn.data.role === "101"
                 console.log("NODE DID", node.did)
             } else {
                 node.did = null
             }
 
-            if (txn.txn.type == "102") {
+            if (txn.txn.type === "102") {
                 links.push({
                     source: node.id,
                     target: txn.txn.data.ref,
@@ -191,7 +191,7 @@ const NetworkVisualisation = () => {
             if (displayAuthorship) {
                 let from = node.from
 
-                let fromNode = nodes.find(element => element.did == from)
+                let fromNode = nodes.find(element => element.did === from)
 
 
                 if (fromNode) {
@@ -204,7 +204,7 @@ const NetworkVisualisation = () => {
             } else {
                 let endorser = node.endorser
 
-                let endorserTx = nodes.find(tx => tx.did == endorser)
+                let endorserTx = nodes.find(tx => tx.did === endorser)
                 if (endorserTx) {
 
                     links.push({
