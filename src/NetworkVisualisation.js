@@ -9,10 +9,8 @@ const NetworkVisualisation = () => {
 
 
 
-    React.useEffect(() => {
-        console.log('Mounted');
-        createNodesAndLinks();
-    }, [displayAuthorship]);
+
+
     const createNodesAndLinks = () => {
         console.log("CREATE NODES")
         console.log("Display Authorship", displayAuthorship)
@@ -233,6 +231,11 @@ const NetworkVisualisation = () => {
     function clamp(x, lo, hi) {
         return x < lo ? lo : x > hi ? hi : x;
     }
+
+    React.useEffect(() => {
+        console.log('Mounted');
+        createNodesAndLinks();
+    }, [displayAuthorship, createNodesAndLinks]);
 
     return (<div className="visualisation">
         <div className="toggle-bar">
