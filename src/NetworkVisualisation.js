@@ -3,11 +3,11 @@ import * as d3 from 'd3';
 import graphData from './graphdata'
 
 const NetworkVisualisation = () => {
-    let data = graphData
-    console.log(data[0])
     let [displayAuthorship, setDisplayAuthorship] = React.useState(false)
 
     const createNodesAndLinks = React.useCallback(() => {
+        let data = graphData
+
         console.log("CREATE NODES")
         console.log("Display Authorship", displayAuthorship)
         let nodes = []
@@ -223,7 +223,7 @@ const NetworkVisualisation = () => {
             simulation.alpha(1).restart();
 
         }
-    })
+    }, [])
 
     function clamp(x, lo, hi) {
         return x < lo ? lo : x > hi ? hi : x;
@@ -232,7 +232,7 @@ const NetworkVisualisation = () => {
     React.useEffect(() => {
         console.log('Mounted');
         createNodesAndLinks();
-    }, [displayAuthorship, createNodesAndLinks]);
+    }, [displayAuthorship, createNodesAndLinks, drawChart]);
 
     return (<div className="visualisation">
         <div className="toggle-bar">
