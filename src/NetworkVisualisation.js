@@ -228,7 +228,7 @@ const NetworkVisualisation = () => {
             links: links
         }
         drawChart(newGraph)
-    }, [drawChart])
+    }, [drawChart, displayAuthorship])
 
     React.useEffect(() => {
         console.log('Mounted');
